@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  TweetViewController.swift
 //  TweetFellowsRM
 //
 //  Created by Randy McLain on 3/31/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class TweetViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
