@@ -15,9 +15,9 @@ The tweet will temporarily hold the username of the user sending the class.
 */
 class Tweet  {
   
-  let myTweetText : String
+  var myTweetText : String
   
-  let myUserName :String
+  var myUserName : String
   
   
   // Instantiate the tweet object giving it user and text values.

@@ -8,6 +8,50 @@
 
 import Foundation
 
-class TweetJSONParser {
+/*
+This class will be used to find tweets and break them into the individual components
+we want to append onto an array of tweet objects.
 
+*/
+class TweetJSONParser {
+  
+  //instantiate our class function / type method.
+  class func tweetsFromJSONData (data : NSData) -> [Tweet] {
+    
+    // instantiate the array containing the tweet objects.
+    var tweets = [Tweet]()
+    // provide informative error outlet.
+    var error : NSError?
+    
+    /* 
+      create a jsonObject by using the NSJSONSerialization class to try and downcast a JSON object to a tweet object if one is 
+      available. This josnObject is downcast to an array of dictionaries composed of  key : value (Strings : anyObjects)
+
+    
+    TODO: add in the ampersand for the error parameter.. currently we are testing to see what effect it has.
+    */
+    if let jsonObject = NSJSONSerialization.JSONObjectWithData (data, options: nil, error:&error) as? [[String : AnyObject]] {
+      
+      // cycle through all the tweets in the json object array and pull out our relevent fields.
+      for object in jsonObject {
+        
+        // downcast any JSON parameter labeled as "text" to our text string.
+        if let text = object["text"] as? String {
+          
+          // downcast any JSON parameter labeled as "user" to our text string.
+          if let userInfo = object["user"] as? [String : AnyObject] {
+            if let username = userInfo["name"] as? String {
+            
+            // convert the strings text and user into a Tweet object.
+            let tweet = Tweet(theTweetText: text, theUserName: username)
+            tweets.append(tweet)
+            }
+          } // text to string (user) and append
+        } // text to string (text)
+      }// for loop
+    } // serialization
+    
+    // return tweets array
+    return tweets
+  } // tweetsFromJSONData
 }
