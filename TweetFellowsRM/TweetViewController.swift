@@ -21,6 +21,27 @@ class TweetViewController: UIViewController, UITableViewDataSource {
     
     self.myTableView.dataSource = self
     
+    
+    // set tableView alpha to 0 to allow for transition.
+    self.myTableView.alpha = 0
+    /* 
+    Use closure to animate the screen to allow for 1 second transition between frame updates
+    */
+    
+    
+    /* 
+    Use closure expression to login access to twitter account
+    This code will be exceuted when ever 
+    */
+    LoginService.requestTwitterAccount { (myTwitterAccount, errorDescription) -> Void in
+      println("got the account")
+    }
+    
+    UIView.animateWithDuration(1.0, animations: { () -> Void in
+      // reveal tableView through duration.  
+      self.myTableView.alpha = 1
+    })
+    
     if let filePath = NSBundle.mainBundle().pathForResource("tweet", ofType: "json") {
       
       if let data = NSData(contentsOfFile: filePath) {

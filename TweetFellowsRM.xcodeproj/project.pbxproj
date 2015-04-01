@@ -16,6 +16,7 @@
 		D05243CE1ACB0075000B8364 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05243CD1ACB0075000B8364 /* Tweet.swift */; };
 		D05243D01ACB00DC000B8364 /* TweetJSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05243CF1ACB00DC000B8364 /* TweetJSONParser.swift */; };
 		D05243D21ACB05EE000B8364 /* tweet.json in Resources */ = {isa = PBXBuildFile; fileRef = D05243D11ACB05EE000B8364 /* tweet.json */; };
+		D0F8E9C51ACC580F00971675 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0F8E9C41ACC580F00971675 /* LoginService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		D05243CD1ACB0075000B8364 /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tweet.swift; path = ../Tweet.swift; sourceTree = "<group>"; };
 		D05243CF1ACB00DC000B8364 /* TweetJSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TweetJSONParser.swift; path = ../TweetJSONParser.swift; sourceTree = "<group>"; };
 		D05243D11ACB05EE000B8364 /* tweet.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = tweet.json; sourceTree = "<group>"; };
+		D0F8E9C41ACC580F00971675 /* LoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginService.swift; path = ../LoginService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 		D05243CA1ACB0022000B8364 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D0F8E9C41ACC580F00971675 /* LoginService.swift */,
 				D05243CF1ACB00DC000B8364 /* TweetJSONParser.swift */,
 				D05243CD1ACB0075000B8364 /* Tweet.swift */,
 			);
@@ -248,6 +251,7 @@
 			files = (
 				D05243D01ACB00DC000B8364 /* TweetJSONParser.swift in Sources */,
 				D05243CE1ACB0075000B8364 /* Tweet.swift in Sources */,
+				D0F8E9C51ACC580F00971675 /* LoginService.swift in Sources */,
 				D05243AD1ACAFED1000B8364 /* TweetViewController.swift in Sources */,
 				D05243AB1ACAFED1000B8364 /* AppDelegate.swift in Sources */,
 			);
