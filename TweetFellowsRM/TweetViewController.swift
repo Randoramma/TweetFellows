@@ -8,13 +8,14 @@
 
 import UIKit
 
-class TweetViewController: UIViewController, UITableViewDataSource {
+class TweetViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   
   // properties
   
   // an array of tweet objects.
   var tweets : [Tweet]?
   
+  @IBOutlet weak var myUserLabel: UILabel!
   // create an instance of the twitter account service.
   let myTwitterService = TwitterService()
   
@@ -26,11 +27,14 @@ class TweetViewController: UIViewController, UITableViewDataSource {
     
     // set the table data source to itself.
     
-    self.myTableView.dataSource = self
-    
-    
+    self.myTableView.delegate = self
     // set tableView alpha to 0 to allow for transition.
     self.myTableView.alpha = 0
+    
+    // use auto layout for row height.  
+    self.myTableView.estimatedRowHeight = 70
+    self.myTableView.rowHeight = UITableViewAutomaticDimension
+    self.myTableView.dataSource = self
     /*
     Use closure to animate the screen to allow for 1 second transition between frame updates
     */
@@ -54,6 +58,7 @@ class TweetViewController: UIViewController, UITableViewDataSource {
             
           }
           
+          // if tweets are present.  
           if theTweets != nil {
             // handle our tweets
             self.tweets = theTweets
@@ -71,6 +76,12 @@ class TweetViewController: UIViewController, UITableViewDataSource {
       self.myTableView.alpha = 1
     })
     }// view did load
+  
+     func viewWillAppear() {
+      
+    super.viewWillAppear(true)
+      self.myTableView.reloadData()
+  }
   
   //MARK:
   //MARK: UITableViewDataSource
@@ -90,24 +101,37 @@ class TweetViewController: UIViewController, UITableViewDataSource {
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
-    
-    let cell = tableView.dequeueReusableCellWithIdentifier ("myTableCell", forIndexPath: indexPath) as UITableViewCell
+    let cell = tableView.dequeueReusableCellWithIdentifier ("myTableCell", forIndexPath: indexPath) as TweetTableViewCell
     // additional scrubbing of cell label contents when recycled.
     cell.textLabel?.text = nil
     
     // set the identities for the tweets in the storyboards.
     if let tweet = self.tweets?[indexPath.row] {
-      cell.textLabel?.text = tweet.myTweetText
-      //TODO
-      // add username here
+      cell.myTweetLabel.text = tweet.myTweetText
       
-      
-      
+      cell.myUserLabel.text = tweet.myUserName
+
     }
     
+    // reset the cell when the UIViewController has already been loaded.
+    //cell.layoutIfNeeded()
     return cell
   } // cellForRowAtIndexPath
   
+  
+  //MARK:
+  //MARK: UITableViewDelegate
+  // create a new UIViewController for to be used for when the row is selected.
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    // instantiate a new view controller.
+    let theViewController = UIViewController()
+    
+    // setup up the view controller.
+    theViewController.view.backgroundColor = UIColor.whiteColor()
+    
+    self.navigationController?.pushViewController(theViewController, animated: true)
+    
+  }
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()
