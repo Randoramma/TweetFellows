@@ -23,6 +23,7 @@ class LoginService {
     
     // Accessing the twitter account asynchronous call.
     // Running on a background thread.
+    // if there exists an account type and
     theAccountStore.requestAccessToAccountsWithType(theAccountType, options: nil) { (granted, error) -> Void in
       // if the call is granted and there are no connection errors.
       if granted && error == nil {
@@ -36,6 +37,10 @@ class LoginService {
             
             // this will be our return type fo the type method 
             completionHandler (theTwitterAccount, nil)
+          } else {
+            if error != nil {
+              println(error.localizedDescription)
+            }
           }
         } // if let
         
