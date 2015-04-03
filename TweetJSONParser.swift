@@ -26,9 +26,6 @@ class TweetJSONParser {
     /*
     create a jsonObject by using the NSJSONSerialization class to try and downcast a JSON object to a tweet object if one is
     available. This josnObject is downcast to an array of dictionaries composed of  key : value (Strings : anyObjects)
-    
-    
-    TODO: add in the ampersand for the error parameter.. currently we are testing to see what effect it has.
     */
     if let jsonObject = NSJSONSerialization.JSONObjectWithData (data, options: nil, error:&error) as? [[String : AnyObject]] {
       
