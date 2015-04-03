@@ -19,14 +19,17 @@ class Tweet  {
   
   var myUserName : String
   
+  var myID : String
+  
   
   // Instantiate the tweet object giving it user and text values.
-  init (theTweetText :String, theUserName : String) {
+  init (theTweetText :String, theUserName : String, theID: String) {
     
     myTweetText = theTweetText
     
     myUserName = theUserName
     
+    myID = theID
     
   }
   

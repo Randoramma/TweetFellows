@@ -35,10 +35,6 @@ class TweetViewController: UIViewController, UITableViewDataSource, UITableViewD
     self.myTableView.estimatedRowHeight = 70
     self.myTableView.rowHeight = UITableViewAutomaticDimension
     self.myTableView.dataSource = self
-    /*
-    Use closure to animate the screen to allow for 1 second transition between frame updates
-    */
-    
     
     /*
     Use closure expression to login access to twitter account
@@ -71,6 +67,9 @@ class TweetViewController: UIViewController, UITableViewDataSource, UITableViewD
       }
     }
     
+    /*
+    Use closure to animate the screen to allow for 1 second transition between frame updates
+    */
     UIView.animateWithDuration(1.0, animations: { () -> Void in
       // reveal tableView through duration.
       self.myTableView.alpha = 1
@@ -114,7 +113,7 @@ class TweetViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     // reset the cell when the UIViewController has already been loaded.
-    //cell.layoutIfNeeded()
+    cell.layoutIfNeeded()
     return cell
   } // cellForRowAtIndexPath
   
