@@ -10,16 +10,20 @@ import UIKit
 class TweetTableViewCell: UITableViewCell {
   
   // properties
-
+  
   @IBOutlet weak var myUserLabel: UILabel!
+  @IBOutlet weak var myRetweetLabel: UILabel!
+  
+  @IBOutlet weak var myUserImage: UIImageView!
   
   @IBOutlet weak var myTweetLabel: UILabel!
+  
+  
   // builds out the tvc from archive storage.
   override func awakeFromNib() {
     super.awakeFromNib()
     
-    //self.myTweetLabel.numberOfLines = 0
-    //self.layoutIfNeeded()
+    
     // Initialization code
   }// awakeFromNib
   

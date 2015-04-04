@@ -42,9 +42,13 @@ class TweetJSONParser {
               
               if let username = userInfo["name"] as? String {
                 
-                // convert the strings text and user into a Tweet object.
-                let tweet = Tweet(theTweetText: text, theUserName: username, theID: id)
-                tweets.append(tweet)
+                if let userImageURL = userInfo["profile_image_url"] as? String {
+                  
+                  
+                  // convert the strings text and user into a Tweet object.
+                  let tweet = Tweet(theTweetText: text, theUserName: username, theID: id, theUserImageURL: userImageURL)
+                  tweets.append(tweet)
+                }
               }
             } // id_str
           } // text to string (user) and append

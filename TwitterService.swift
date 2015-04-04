@@ -13,6 +13,15 @@ import Accounts
 
 class TwitterService {
   
+  
+  class var sharedService : TwitterService {
+    struct Static {
+      static let instance : TwitterService = TwitterService()
+    }
+    return Static.instance
+  }
+  
+  
   // properties
   // the user account information object.
   var myTwitterAccount : ACAccount?
@@ -20,7 +29,7 @@ class TwitterService {
   // string for home timeline http address (Twitter).
   let myHomeTimeline : String = "https://api.twitter.com/1.1/statuses/home_timeline.json"
   
-  // string to access the tweet info to pull into secondary VC.  
+  // string to access the tweet info to pull into secondary VC.
   let tweetInfoURL  : String = "https://api.twitter.com/1.1/statuses/show.json?id="
   
   init () {
@@ -58,8 +67,8 @@ class TwitterService {
         default : println("non standard error")
           
         }
-
-        // bring the twitter call back to the main queue.  
+        
+        // bring the twitter call back to the main queue.
         NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
           completionHandler(theTweets, nil)
         })
@@ -72,7 +81,7 @@ class TwitterService {
     
   } // fetchHomeTimeline
   
-  func fetchInfoFromTweet (theId : String, completionHandler : (String?, String?) -> Void ) {
+  func fetchInfoFromTweet (theId : String, completionHandler : (String?) -> Void ) {
     
     // set the URL equal to the API's URL + the ID of the User.
     let tweetInfoURL = self.tweetInfoURL + theId
@@ -89,13 +98,21 @@ class TwitterService {
     theTwitterRequest.performRequestWithHandler { (theData, theResponse, theError) -> Void in
       // TODO setup the response switch statement
       if theResponse.statusCode == 200 {
-        // new JSON Data.  
+        // new JSON Data.
+        let theInfo = TweetInfoJSONParser.tweetInfoFromJSONParser(theData)
+        NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+          completionHandler(theInfo)
+        })
+        
+        
+        
+        
         
       }
       
     }
     
-
+    
   }
- 
+  
 }

@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Randy McLain. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 /*
 Our tweet object will be holding the text a user recieves.
@@ -21,9 +21,13 @@ class Tweet  {
   
   var myID : String
   
+  var myUserImage : UIImage?
+  
+  var myUserImageURL : String?
+  
   
   // Instantiate the tweet object giving it user and text values.
-  init (theTweetText :String, theUserName : String, theID: String) {
+  init (theTweetText :String, theUserName : String, theID: String, theUserImageURL : String) {
     
     myTweetText = theTweetText
     
@@ -31,6 +35,16 @@ class Tweet  {
     
     myID = theID
     
+    myUserImageURL = theUserImageURL
+    
+    
+    // download the image
+    //TODO Move this
+    
+    
+    
   }
+  
+  
   
 }

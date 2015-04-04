@@ -19,8 +19,16 @@ class TweetViewController: UIViewController, UITableViewDataSource, UITableViewD
   // create an instance of the twitter account service.
   let myTwitterService = TwitterService()
   
+  // create an instance of an imageService object to handle the image.
+  let myImageService = ImageService()
+  
   // table view in storyboard.
   @IBOutlet weak var myTableView: UITableView!
+  
+  
+  // find the Nib in the bundle.
+  let myNib = UINib(nibName: "TweetTableViewCell", bundle: NSBundle.mainBundle())
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -31,7 +39,9 @@ class TweetViewController: UIViewController, UITableViewDataSource, UITableViewD
     // set tableView alpha to 0 to allow for transition.
     self.myTableView.alpha = 0
     
-    // use auto layout for row height.  
+    self.myTableView.registerNib(myNib, forCellReuseIdentifier: "TweetCell")
+    
+    // use auto layout for row height.
     self.myTableView.estimatedRowHeight = 70
     self.myTableView.rowHeight = UITableViewAutomaticDimension
     self.myTableView.dataSource = self
@@ -50,11 +60,11 @@ class TweetViewController: UIViewController, UITableViewDataSource, UITableViewD
         self.myTwitterService.fetchHomeTimeline({ (theTweets, errorDescription) -> Void in
           if errorDescription != nil {
             // handle an error
-
+            
             
           }
           
-          // if tweets are present.  
+          // if tweets are present.
           if theTweets != nil {
             // handle our tweets
             self.tweets = theTweets
@@ -65,7 +75,7 @@ class TweetViewController: UIViewController, UITableViewDataSource, UITableViewD
         })
         
       }
-    }
+    } // viewDidLoad
     
     /*
     Use closure to animate the screen to allow for 1 second transition between frame updates
@@ -74,12 +84,12 @@ class TweetViewController: UIViewController, UITableViewDataSource, UITableViewD
       // reveal tableView through duration.
       self.myTableView.alpha = 1
     })
-    }// view did load
+  }// view did load
   
-     func viewWillAppear() {
-      
+  func viewWillAppear() {
+    
     super.viewWillAppear(true)
-      self.myTableView.reloadData()
+    self.myTableView.reloadData()
   }
   
   //MARK:
@@ -100,17 +110,45 @@ class TweetViewController: UIViewController, UITableViewDataSource, UITableViewD
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
-    let cell = tableView.dequeueReusableCellWithIdentifier ("myTableCell", forIndexPath: indexPath) as TweetTableViewCell
+    let cell = tableView.dequeueReusableCellWithIdentifier ("TweetCell", forIndexPath: indexPath) as TweetTableViewCell
+    
+    cell.tag++
+    
+    let tag = cell.tag
     // additional scrubbing of cell label contents when recycled.
     cell.textLabel?.text = nil
+    // reset the images to nil because image load varibility times and image presence.
+    cell.myUserImage.image = nil
     
     // set the identities for the tweets in the storyboards.
-    if let tweet = self.tweets?[indexPath.row] {
-      cell.myTweetLabel.text = tweet.myTweetText
+    if let theTweet = self.tweets?[indexPath.row] {
+      cell.myTweetLabel.text = theTweet.myTweetText
       
-      cell.myUserLabel.text = tweet.myUserName
-
-    }
+      cell.myUserLabel.text = theTweet.myUserName
+      
+      // load and find image
+      
+      // set the image in the cell equal to the image from the dictionary.
+      cell.myUserImage.image = theTweet.myUserImage
+      
+      if let theImage = theTweet.myUserImage {
+        // set the cell's image equal to a temp variable.
+        cell.myUserImage.image = theImage
+        
+      } else  {
+        // lazy load the image if an image exists.
+        self.myImageService.fetchProfileImage(theTweet.myUserImageURL!, completionHandler: {[weak self] (theImage) -> () in
+          // if the cell still exists
+          if self != nil {
+            // set the cell's user image to myUserImage
+            theTweet.myUserImage = theImage
+            if tag == cell.tag {
+              cell.myUserImage.image = theTweet.myUserImage
+            }
+          } // fetchProfileImage
+        }) // callback
+      } // if let else
+    } // iflet tweet = self.tweets
     
     // reset the cell when the UIViewController has already been loaded.
     cell.layoutIfNeeded()
@@ -122,15 +160,26 @@ class TweetViewController: UIViewController, UITableViewDataSource, UITableViewD
   //MARK: UITableViewDelegate
   // create a new UIViewController for to be used for when the row is selected.
   func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    // instantiate a new view controller.
-    let theViewController = UIViewController()
+    // instantiate a new view controller as type VC without segue.
+    let theViewController = self.storyboard!.instantiateViewControllerWithIdentifier("myTweetInfoVC") as TwitterInfoViewController
     
-    // setup up the view controller.
-    theViewController.view.backgroundColor = UIColor.whiteColor()
     
+    // pass to VC
+    // mark the tweet that is to be passed into the VC.
+    let theSelectedTweet = tweets![indexPath.row]
+    
+    // pass the tweet into the VC.
+    theViewController.mySelectedTweet = theSelectedTweet
+    
+    // pass the twitter service to the VC.
+    theViewController.myTwitterService = self.myTwitterService
+    
+    //
     self.navigationController?.pushViewController(theViewController, animated: true)
     
-  }
+    
+    
+  } // didSelectRow
   
   override func didReceiveMemoryWarning() {
     super.didReceiveMemoryWarning()

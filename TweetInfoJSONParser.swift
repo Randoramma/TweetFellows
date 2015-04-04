@@ -13,8 +13,8 @@ Class dedicated to parsing data from the twitter object.
 
 */
 class TweetInfoJSONParser {
-
-
+  
+  
   
   class func tweetInfoFromJSONParser (theData : NSData) -> String? {
     
@@ -28,12 +28,13 @@ class TweetInfoJSONParser {
     if let theJSONTweetObject = NSJSONSerialization.JSONObjectWithData(theData, options: nil, error: &myError) as? [String : AnyObject] {
       
       // what is the text retweet count?
-      if let retweetCount = theJSONTweetObject["retweetCount"] as? Int {
-        return "\(retweetCount)"
+      if let theRetweetLabel = theJSONTweetObject["retweet_count"] as? Int {
+        return "\(theRetweetLabel)"
       } // if let Retweet count
       
+      
     } // if let NSSerialization
-
+    
     return nil
   } // tweetInfoFromJSONParser
   
