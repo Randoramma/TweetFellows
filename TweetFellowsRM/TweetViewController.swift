@@ -16,8 +16,6 @@ class TweetViewController: UIViewController, UITableViewDataSource, UITableViewD
   var tweets : [Tweet]?
   
   @IBOutlet weak var myUserLabel: UILabel!
-  // create an instance of the twitter account service.
-  let myTwitterService = TwitterService()
   
   // create an instance of an imageService object to handle the image.
   let myImageService = ImageService()
@@ -52,12 +50,11 @@ class TweetViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     */
     LoginService.requestTwitterAccount { (theTwitterAccount, errorDescription) -> Void in
-      println("we got accounts")
       // if a twitter account is found to exist on the device (see TwitterService)
       if theTwitterAccount != nil {
         // set
-        self.myTwitterService.myTwitterAccount = theTwitterAccount
-        self.myTwitterService.fetchHomeTimeline({ (theTweets, errorDescription) -> Void in
+        TwitterService.mySharedService.myTwitterAccount = theTwitterAccount
+        TwitterService.mySharedService.fetchHomeTimeline({ (theTweets, errorDescription) -> Void in
           if errorDescription != nil {
             // handle an error
             
@@ -171,9 +168,9 @@ class TweetViewController: UIViewController, UITableViewDataSource, UITableViewD
     // pass the tweet into the VC.
     theViewController.mySelectedTweet = theSelectedTweet
     
-    // pass the twitter service to the VC.
-    theViewController.myTwitterService = self.myTwitterService
-    
+//    // pass the twitter service to the VC.
+//    theViewController.TwitterService = self.myTwitterService
+//    
     //
     self.navigationController?.pushViewController(theViewController, animated: true)
     

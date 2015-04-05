@@ -14,7 +14,7 @@ import Accounts
 class TwitterService {
   
   
-  class var sharedService : TwitterService {
+  class var mySharedService : TwitterService {
     struct Static {
       static let instance : TwitterService = TwitterService()
     }
@@ -31,6 +31,8 @@ class TwitterService {
   
   // string to access the tweet info to pull into secondary VC.
   let tweetInfoURL  : String = "https://api.twitter.com/1.1/statuses/show.json?id="
+  
+  let tweetUserURL : String = "https://api.twitter.com/1.1/statuses/user_timeline.json?username (Links to an external site.)="
   
   init () {
     // do nothing.
@@ -72,10 +74,6 @@ class TwitterService {
         NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
           completionHandler(theTweets, nil)
         })
-        
-        println(theTweets.count)
-        
-        
       } // if else
     } //performRequestWithHandler
     
@@ -103,16 +101,16 @@ class TwitterService {
         NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
           completionHandler(theInfo)
         })
-        
-        
-        
-        
-        
       }
-      
     }
-    
-    
-  }
-  
+  } // fetch info from tweet 
+  // **Still Working on IT
+//  
+//  func fetchUserTimeLine (completionHandler : (theID : String, completionHandler : [Tweets]?) -> Void) {
+//    
+//    // get the API URL plus the userID
+//    let theUserRequest =  self.tweetUserURL + theID
+//    
+//  }
+//  
 }

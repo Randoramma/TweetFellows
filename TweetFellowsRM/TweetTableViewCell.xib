@@ -27,20 +27,31 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dnt-rH-fwP">
-                        <rect key="frame" x="56" y="44" width="708" height="143.5"/>
+                        <rect key="frame" x="56" y="44" width="708" height="119"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="retweet" translatesAutoresizingMaskIntoConstraints="NO" id="m3T-OP-tzI">
+                        <rect key="frame" x="56" y="171" width="20" height="20.5"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star" translatesAutoresizingMaskIntoConstraints="NO" id="nax-Eu-8v4">
+                        <rect key="frame" x="96" y="171" width="20" height="20"/>
+                    </imageView>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="m3T-OP-tzI" firstAttribute="leading" secondItem="Dnt-rH-fwP" secondAttribute="leading" id="0aK-jP-Nl7"/>
+                    <constraint firstItem="nax-Eu-8v4" firstAttribute="leading" secondItem="m3T-OP-tzI" secondAttribute="trailing" constant="20" id="1rI-lS-JZa"/>
                     <constraint firstItem="7to-yQ-C4h" firstAttribute="top" secondItem="gh4-Wj-QdZ" secondAttribute="topMargin" constant="8" id="4Dy-y2-Pvv"/>
+                    <constraint firstItem="m3T-OP-tzI" firstAttribute="bottom" secondItem="gh4-Wj-QdZ" secondAttribute="bottomMargin" constant="2" id="51X-zB-qwr"/>
+                    <constraint firstItem="m3T-OP-tzI" firstAttribute="top" secondItem="Dnt-rH-fwP" secondAttribute="bottom" constant="8" id="57g-8l-yfc"/>
                     <constraint firstItem="7to-yQ-C4h" firstAttribute="leading" secondItem="Dnt-rH-fwP" secondAttribute="leading" id="5ob-ba-ARr"/>
+                    <constraint firstItem="nax-Eu-8v4" firstAttribute="top" secondItem="Dnt-rH-fwP" secondAttribute="bottom" constant="8" id="BLK-oT-HgM"/>
                     <constraint firstItem="Dnt-rH-fwP" firstAttribute="trailing" secondItem="gh4-Wj-QdZ" secondAttribute="trailingMargin" id="OaK-oP-maa"/>
                     <constraint firstItem="Zc0-qt-AH1" firstAttribute="leading" secondItem="gh4-Wj-QdZ" secondAttribute="leadingMargin" id="QDt-5g-tcW"/>
+                    <constraint firstItem="nax-Eu-8v4" firstAttribute="bottom" secondItem="gh4-Wj-QdZ" secondAttribute="bottomMargin" constant="2" id="RAW-5E-DZd"/>
                     <constraint firstItem="7to-yQ-C4h" firstAttribute="leading" secondItem="Zc0-qt-AH1" secondAttribute="trailing" constant="8" id="UHS-r0-y5j"/>
                     <constraint firstItem="Zc0-qt-AH1" firstAttribute="top" secondItem="gh4-Wj-QdZ" secondAttribute="topMargin" id="WPh-dY-wfu"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="Dnt-rH-fwP" secondAttribute="bottom" constant="2" id="aNn-bC-Yg9"/>
                     <constraint firstItem="Dnt-rH-fwP" firstAttribute="top" secondItem="7to-yQ-C4h" secondAttribute="bottom" constant="8" id="opi-Cp-wqw"/>
                 </constraints>
             </tableViewCellContentView>
@@ -52,4 +63,8 @@
             <point key="canvasLocation" x="474" y="152"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="retweet" width="20" height="20"/>
+        <image name="star" width="20" height="20"/>
+    </resources>
 </document>

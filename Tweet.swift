@@ -16,13 +16,9 @@ The tweet will temporarily hold the username of the user sending the class.
 class Tweet  {
   
   var myTweetText : String
-  
   var myUserName : String
-  
   var myID : String
-  
   var myUserImage : UIImage?
-  
   var myUserImageURL : String?
   
   
@@ -30,18 +26,9 @@ class Tweet  {
   init (theTweetText :String, theUserName : String, theID: String, theUserImageURL : String) {
     
     myTweetText = theTweetText
-    
     myUserName = theUserName
-    
     myID = theID
-    
     myUserImageURL = theUserImageURL
-    
-    
-    // download the image
-    //TODO Move this
-    
-    
     
   }
   
