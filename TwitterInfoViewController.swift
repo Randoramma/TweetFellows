@@ -27,15 +27,13 @@ class TwitterInfoViewController: UIViewController {
     myTweetInfoLabel.text = self.mySelectedTweet.myTweetText
     
     // fetch the data for the tweet info object
-    
-    
     TwitterService.mySharedService.fetchInfoFromTweet(self.mySelectedTweet.myID, completionHandler: {[weak self] (theRetweets) -> Void in
+      
       if self != nil {
         self!.myRetweetLabel.text = theRetweets
         println(theRetweets)
       } 
     })
-    
   } // viewDidLoad
   
    //MARK: - Navigation

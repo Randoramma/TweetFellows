@@ -25,14 +25,12 @@ class TweetInfoJSONParser {
     create a jsonObject by using the NSJSONSerialization class to try and downcast a JSON object to a tweet object if one is
     available. This josnObject is downcast to an array of dictionaries composed of  key : value (Strings : anyObjects)
     */
-    if let theJSONTweetObject = NSJSONSerialization.JSONObjectWithData(theData, options: nil, error: &myError) as? [String : AnyObject] {
-      
-      // what is the text retweet count?
-      if let theRetweetLabel = theJSONTweetObject["retweet_count"] as? Int {
-        return "\(theRetweetLabel)"
-      } // if let Retweet count
-    } // if let NSSerialization
-    
+    var error : NSError?
+    if let jsonObject = NSJSONSerialization.JSONObjectWithData(theData, options: nil, error: &error) as? [String : AnyObject] {
+      if let retweetCount = jsonObject["retweet_count"] as? Int {
+        return "\(retweetCount)"
+      }
+    }
     return nil
   } // tweetInfoFromJSONParser
 }

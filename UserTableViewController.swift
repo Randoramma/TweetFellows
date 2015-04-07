@@ -81,21 +81,19 @@
       }
       
       // set
-      TwitterService.mySharedService.fetchUserTimeLine(self.myIDNumber, completionHandler: {(theUserTweets) -> Void in
-        
+      TwitterService.mySharedService.fetchUserTimeLine(self.myIDNumber, completionHandler: { (theUserTweets) -> Void in
         // if tweets are present.
-        if theUserTweets != nil {
-          // handle our tweets
-          self.userTweets = theUserTweets
-          self.userTweets?.debugDescription.debugDescription
-          
-          // reload the table view
-          self.myUserTableView.reloadData()
-        } else {
-          println("we got an error")
-        }
+                if theUserTweets != nil {
+                  // handle our tweets
+                  self.userTweets = theUserTweets
+        
+                  // reload the table view
+                  self.myUserTableView.reloadData()
+                } else {
+                  
+                } //if else
       })
-    } // viewDidLoad
+     } // viewDidLoad
     
     // Make 1 row for every tweet if any tweets are available.
     override func tableView (tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
