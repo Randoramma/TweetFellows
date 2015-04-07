@@ -32,7 +32,7 @@ class TwitterService {
   // string to access the tweet info to pull into secondary VC.
   let tweetInfoURL  : String = "https://api.twitter.com/1.1/statuses/show.json?id="
   
-  let tweetUserURL : String = "https://api.twitter.com/1.1/statuses/user_timeline.json?username (Links to an external site.)="
+  let tweetUserURL : String = "https://api.twitter.com/1.1/statuses/user_timeline.json?id_str="
   
   init () {
     // do nothing.
@@ -83,6 +83,7 @@ class TwitterService {
     
     // set the URL equal to the API's URL + the ID of the User.
     let tweetInfoURL = self.tweetInfoURL + theId
+//    println(tweetInfoURL)
     // temp constant for the url to be passed into the request method.
     let theRequestURL = NSURL(string: tweetInfoURL)
     
@@ -103,14 +104,48 @@ class TwitterService {
         })
       }
     }
-  } // fetch info from tweet 
+  } // fetch info from tweet
   // **Still Working on IT
-//  
-//  func fetchUserTimeLine (completionHandler : (theID : String, completionHandler : [Tweets]?) -> Void) {
-//    
-//    // get the API URL plus the userID
-//    let theUserRequest =  self.tweetUserURL + theID
-//    
-//  }
-//  
+  
+  func fetchUserTimeLine (theId: String, completionHandler : ([Tweet]?) -> Void) {
+    
+    // get the API URL plus the userID
+    let theUserRequestURL : String =  self.tweetUserURL + theId
+
+    // convert to an NSURL object to make the Twitter call.
+    let theRequestURL = NSURL (string: theUserRequestURL)
+    
+    // TODO: finish the call.
+    let theUserTwitterRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: theRequestURL, parameters: nil)
+    
+    // naming the account from twitter to our user account object.
+    theUserTwitterRequest.account = myTwitterAccount
+    
+    println(theUserTwitterRequest.preparedURLRequest().URL)
+
+    // call the Twitter host and handle any errors produced by the request.
+    theUserTwitterRequest.performRequestWithHandler {(theUserData, theUserResponse, theUserError) -> Void in
+      if theUserError != nil {
+        
+      } else {
+        var errorDescription : String? = nil
+        var theUserTweets = [Tweet]()
+        switch theUserResponse.statusCode {
+          
+        case 200...299 : theUserTweets = TweetJSONParser.tweetsFromJSONData(theUserData)
+        NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+          completionHandler(theUserTweets)
+        })
+          
+        case 400...499 : println("user error, please try request again using valid query.")
+          
+        case 500...599 : println("server error, server own, please try again later.")
+          
+        default : println("non standard error")
+          
+        } // switch
+      } //if else
+    } // performRequestWithHandler
+  } // fetchUserTimeLine
+  
 }

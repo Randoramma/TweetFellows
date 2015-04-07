@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Randy McLain. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 /*
 Class dedicated to parsing data from the twitter object.
@@ -31,13 +31,8 @@ class TweetInfoJSONParser {
       if let theRetweetLabel = theJSONTweetObject["retweet_count"] as? Int {
         return "\(theRetweetLabel)"
       } // if let Retweet count
-      
-      
     } // if let NSSerialization
     
     return nil
   } // tweetInfoFromJSONParser
-  
-  
-  
 }

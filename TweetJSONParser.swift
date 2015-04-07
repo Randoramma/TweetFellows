@@ -38,16 +38,23 @@ class TweetJSONParser {
           // downcast any JSON parameter labeled as "user" to our text string.
           if let userInfo = object["user"] as? [String : AnyObject] {
             // pull the id from the tweet object for a user.
-            if let id = object["id_str"] as? String {
+            
+            if let username = userInfo["name"] as? String {
               
-              if let username = userInfo["name"] as? String {
+              if let id = userInfo["id_str"] as? String {
                 
-                if let userImageURL = userInfo["profile_image_url"] as? String {
-                  
-                  
-                  // convert the strings text and user into a Tweet object.
-                  let tweet = Tweet(theTweetText: text, theUserName: username, theID: id, theUserImageURL: userImageURL)
-                  tweets.append(tweet)
+                if let userBackgroundImageURL = userInfo["profile_background_image_url"] as? String {
+              
+                  if let userImageURL = userInfo["profile_image_url"] as? String {
+                    
+                    if let userLocation = userInfo["location"] as? String {
+                      
+                      
+                      // convert the strings text and user into a Tweet object.
+                      let tweet = Tweet(theTweetText: text, theUserName: username, theID: id, theUserImageURL: userImageURL, theUserBackgroundImageURL: userBackgroundImageURL, theUserLocation: userLocation)
+                      tweets.append(tweet)
+                    }
+                  }
                 }
               }
             } // id_str

@@ -20,15 +20,20 @@ class Tweet  {
   var myID : String
   var myUserImage : UIImage?
   var myUserImageURL : String?
+  var myUserLocation : String?
+  var myUserBackgroundImageURL : String?
   
   
   // Instantiate the tweet object giving it user and text values.
-  init (theTweetText :String, theUserName : String, theID: String, theUserImageURL : String) {
+  init (theTweetText :String, theUserName : String, theID: String, theUserImageURL : String, theUserBackgroundImageURL: String, theUserLocation : String) {
     
     myTweetText = theTweetText
     myUserName = theUserName
     myID = theID
     myUserImageURL = theUserImageURL
+    myUserBackgroundImageURL = theUserBackgroundImageURL
+    myUserLocation = theUserLocation
+    
     
   }
   

@@ -57,15 +57,12 @@ class TweetViewController: UIViewController, UITableViewDataSource, UITableViewD
         TwitterService.mySharedService.fetchHomeTimeline({ (theTweets, errorDescription) -> Void in
           if errorDescription != nil {
             // handle an error
-            
-            
           }
           
           // if tweets are present.
           if theTweets != nil {
             // handle our tweets
             self.tweets = theTweets
-            
             // reload the table view
             self.myTableView.reloadData()
           }
@@ -167,10 +164,6 @@ class TweetViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     // pass the tweet into the VC.
     theViewController.mySelectedTweet = theSelectedTweet
-    
-//    // pass the twitter service to the VC.
-//    theViewController.TwitterService = self.myTwitterService
-//    
     //
     self.navigationController?.pushViewController(theViewController, animated: true)
     
